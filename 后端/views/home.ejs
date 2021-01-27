@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>酒店管理系统</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href='/stylesheets/home.css' />
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1506624_jkvot6m5nu8.css">
+</head>
+  <body>
+    <div class="all">
+        <div class="header">
+            <h1>酒店管理系统</h1>
+            <img src="./images/manager.jpg" class="manager"/>
+            <a href="/">退出登录</a>
+        </div>
+        <div class="slide">
+            <a href="/user">
+                <div class="nav" style="margin-top: 7%">用户管理</div>
+            </a>
+            <a href="/room">
+                <div class="nav">客房管理</div>
+            </a>
+            <a href="/reserve">
+                <div class="nav">预订管理</div>
+            </a>
+            <a href="/order">
+                <div class="nav">订单管理</div>
+            </a>
+            <a href="/service">
+                <div class="nav">服务管理</div>
+            </a>
+            <a href="/comment">
+                <div class="nav">评论管理</div>
+            </a>
+        </div>
+        <div class="content">
+            <div class="main">
+                <div class="number">
+                    <div class="number1" style="background:yellow;">
+                        <p class="p1">66</p>
+                        <p class="p2">新注册用户数</p>
+                    </div>
+                    <div class="number1" style="margin-left:12.5%; background:#eb6100;">
+                        <p class="p1">66</p>
+                        <p class="p2">累计用户数量</p>
+                    </div>
+                    <div class="number1" style="margin-left:12.5%;">
+                        <p class="p1">666</p>
+                        <p class="p2">累计订单数量</p>
+                    </div>
+                </div>
+                <div class="welcome">
+                    <p>欢 迎 使 用 ！！！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript"></script>
+  <script>
+    var height = window.innerHeight;
+    console.log(height-70); 
+    $('.all').css('height',height);
+    $('.slide').css('height',height-70);
+    $('.content').css('height',height-70);
+  </script>
+</html>

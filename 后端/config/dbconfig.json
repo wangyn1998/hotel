@@ -1,0 +1,8 @@
+{
+    "host": "localhost",
+    "database": "hotel",
+    "user": "root",
+    "password": "",
+    "multipleStatements": true
+
+}

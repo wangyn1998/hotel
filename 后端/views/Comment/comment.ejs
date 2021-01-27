@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>酒店管理系统</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href='/stylesheets/comment.css' />
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1506624_jkvot6m5nu8.css">
+</head>
+  <body>
+    <div class="all">
+        <div class="header">
+            <h1>酒店管理系统</h1>
+            <img src="./images/manager.jpg" class="manager"/>
+            <a href="/">退出登录</a>
+        </div>
+        <div class="slide">
+            <a href="/user">
+                <div class="nav" style="margin-top: 7%;">用户管理</div>
+            </a>
+            <a href="/room">
+                <div class="nav">客房管理</div>
+            </a>
+            <a href="/comment">
+                <div class="nav">预订管理</div>
+            </a>
+            <a href="/order">
+                <div class="nav">订单管理</div>
+            </a>
+            <a href="/service">
+                <div class="nav">服务管理</div>
+            </a>
+            <a href="/comment">
+                <div class="nav" style="background: gray;">评论管理</div>
+            </a>
+        </div>
+        <div class="content">
+            <form style="margin-top: 3%;" method="post" action="searchComment">
+                <input class="search" type="text" placeholder="请输入" name="comment"/>
+                <input class="search-button" type="submit" value="搜索"/>
+            </form>
+            <div class="commentMain">
+                <ul id="all">
+                    <!-- <li>
+                        <div class="commenthead">
+                            <div class="commenttitle"><h3>序号</h3></div>
+                            <div class="commenttitle"><h3>头像</h3></div>
+                            <div class="commenttitle"><h3>用户名</h3></div>
+                            <div class="commenttitle" style="width: 40%"><h3>评论</h3></div>
+                            <div class="commenttitle"><h3>点赞数</h3></div>
+                            <div class="commenttitle"><h3>操作</h3></div>
+                        </div>
+                    </li> -->
+                    
+                    <% for(var i = 0 ; i <  7; i++) {%>
+                        <li>
+                            <div class="commentbody">
+                                <p class="commentcontent"><%= i+1 %></p>
+                                <div class="commentcontent">
+                                    <img class="commentImg" src="./images/user1.jpg"/> 
+                                </div>
+                                <p class="commentcontent">-</p>
+                                <p class="commentcontent" style="width: 40%;overflow: hidden;">
+                                -
+                                </p>
+                                <p class="commentcontent">-</p>
+                                <p class="commentcontent">
+                                    <a class="reply" id="reply">回复</a>
+                                    <a class="del" id="del" style="margin-left: 5%">删除</a>
+                                </p>
+                            </div>
+                        </li>
+                    <% } %>  
+                </ul>
+            </div>
+            <div class="pageBox">
+                <div id="page"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 回复弹出框 -->
+    <div id="pop-container2">
+        <div id="cover-tier" class="popPosition"></div>
+        <div id="pop-tier2" class="popPosition">
+            <i id="close-pop2" style="color:#e53834">&#10006;</i>
+            <p style="margin-top: 40px;">您要回复该用户评论的是：</p>
+            <textarea id="content"></textarea>
+            <button id="reply-sure">确定</button>
+        </div>
+    </div>
+    <!-- 删除弹出框 -->
+    <div id="pop-container">
+        <div id="cover-tier" class="popPosition"></div>
+        <div id="pop-tier" class="popPosition">
+            <i id="close-pop" style="color:#e53834">&#10006;</i>
+            <div class="iconfont icon-dui" style="color:#e53834;margin-top:20px">
+                <span>确定要删除吗？</span>
+            </div>
+            <button id="sure">确定</button>
+        </div>
+    </div>
+  </body>
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript"></script>
+  <script>
+    var height = window.innerHeight;
+    console.log(height-70); 
+    $('.all').css('height',height);
+    $('.slide').css('height',height-70);
+    $('.content').css('height',height-70);
+
+    //分页
+    function getzz() {
+        var a = $("ul#all li");
+        var zz =new Array(a.length);
+        for(var i=0;i <a.length;i++){
+            zz[i]=a[i].innerHTML;
+        }
+        return zz;
+    }
+    function change(e){
+        pageno=e;
+        if(e<1){
+            e=1;
+            pageno=1;
+        }
+        if(e>pageall){
+            e=pageall;
+            pageno=pageall;
+        }
+        $("#all").html("");
+        var html=' <li><div class="commenthead"><div class="commenttitle"><h3>序号</h3></div><div class="commenttitle"><h3>头像</h3></div><div class="commenttitle"><h3>用户名</h3></div><div class="commenttitle" style="width: 40%"><h3>评论</h3></div><div class="commenttitle"><h3>点赞数</h3></div><div class="commenttitle"><h3>操作</h3></div></div></li> ';
+        for(var i=0;i<pagesize;i++){
+            html += '<li>' + zz[(e-1)*pagesize+i] +'</li>';
+            if(zz[(e-1)*pagesize+i+1]==null) break;
+        }
+        $("ul#all").html(html);
+        var ye="";
+        for(var j=1;j<=pageall;j++){
+            if(e==j){
+                ye=ye+"<span><a href='#' onClick='change("+j+")' style='color:#e53834'>"+j+"</a></span> ";
+            }else{
+                ye=ye+"<a href='#' onClick='change("+j+")'>"+j+"</a> ";
+            }
+        }
+        var pageContent="";
+        pageContent +='第<span id=\"a2\">'+pageno+'</span>/';
+        pageContent +='<span id="a1">'+pageall+'</span>页';
+        pageContent +="<span id='a3' style='margin-left:10px'>"+ye+'</span>';
+        pageContent +='<a href="#" style="margin-left:10px;" onClick="change(--pageno)">上一页</a>';
+        pageContent +='<a href="#" style="margin-left:5px;" onClick="change(++pageno)">下一页</a>';
+        $("#page").html(pageContent);
+    }
+    var zz = getzz();
+    var pageno = 1 ; 
+    var pagesize = 5; 
+    if(zz.length%pagesize == 0){
+        var pageall = zz.length/pagesize;
+    }else{
+        var pageall = parseInt(zz.length/pagesize) + 1;
+    } 
+    change(1);
+
+    // 点击按钮出现弹出层
+    $('.reply').click(function(){
+        $('#pop-container2').css('display','block');
+    })
+    $('.del').click(function(){
+        $('#pop-container').css('display','block');
+    })
+    // 点击右上角X弹出层隐藏
+    $('#close-pop').click(function(){
+        $('#pop-container').css('display','none');
+    })
+    $('#close-pop2').click(function(){
+        $('#pop-container2').css('display','none');
+    })
+
+    //回复评论
+    var reply = "";
+    $(".reply").click(function(){
+        reply = $(this).attr("id");
+        console.log(reply);
+    })
+
+    $('#reply-sure').click(function(){
+        $.ajax({
+            url: '/replyComment',
+            method: 'POST',
+            data: {
+                reply: reply,
+                content: $('#content').val()
+            },
+            success: function(data){
+                if(data == 'success'){
+                    alert('操作成功');
+                }else{
+                    alert('操作失败');
+                }
+                window.location.href='/comment';
+            }
+        })
+    })
+
+    //删除评论
+    var comment = "";
+    $(".del").click(function(){
+        comment = $(this).attr("id");
+        console.log(comment);
+    })
+
+    $('#sure').click(function(){
+        $.ajax({
+            url: '/delcomment',
+            method: 'POST',
+            data: {
+                comment: comment
+            },
+            success: function(data){
+                if(data == 'success'){
+                    alert('删除成功');
+                }else{
+                    alert('删除失败');
+                }
+                window.location.href='/comment';
+            }
+        })
+    })
+  </script>
+</html>

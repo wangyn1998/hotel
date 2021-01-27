@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>酒店管理系统</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href='/stylesheets/order.css' />
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1506624_jkvot6m5nu8.css">
+</head>
+  <body>
+    <div class="all">
+        <div class="header">
+            <h1>酒店管理系统</h1>
+            <img src="./images/manager.jpg" class="manager"/>
+            <a href="/">退出登录</a>
+        </div>
+        <div class="slide">
+            <a href="/user">
+                <div class="nav" style="margin-top: 7%;">用户管理</div>
+            </a>
+            <a href="/room">
+                <div class="nav">客房管理</div>
+            </a>
+            <a href="/reserve">
+                <div class="nav">预订管理</div>
+            </a>
+            <a href="/order">
+                <div class="nav" style="background: gray;">订单管理</div>
+            </a>
+            <a href="/service">
+                <div class="nav">服务管理</div>
+            </a>
+            <a href="/comment">
+                <div class="nav">评论管理</div>
+            </a>
+        </div>
+        <div class="content">
+            <form style="margin-top: 3%;" method="post" action="searchOrder">
+                <input class="search" type="text" placeholder="请输入" name="order"/>
+                <input class="search-button" type="submit" value="搜索"/>
+            </form>
+            <div class="orderMain">
+                <ul id="all">
+                    <!-- <li>
+                        <div class="orderhead">
+                            <div class="ordertitle"><h3>序号</h3></div>
+                            <div class="ordertitle"><h3>头像</h3></div>
+                            <div class="ordertitle"><h3>用户名</h3></div>
+                            <div class="ordertitle"><h3>房间号</h3></div>
+                            <div class="ordertitle"><h3>入住时间</h3></div>
+                            <div class="ordertitle"><h3>离店日期</h3></div>
+                            <div class="ordertitle"><h3>服务</h3></div>
+                            <div class="ordertitle"><h3>操作</h3></div>
+                        </div>
+                    </li> -->
+                    <% for(var i = 0 ; i <  7; i++) {%>
+                        <li>
+                            <div class="orderbody">
+                                <p class="ordercontent"><%= i+1 %></p>
+                                <div class="ordercontent">
+                                    <img class="orderImg" src="./images/user1.jpg"/> 
+                                </div>
+                                <p class="ordercontent">用户x</p>
+                                <p class="ordercontent">xxxxxxxx</p>
+                                <p class="ordercontent">-</p>
+                                <p class="ordercontent">-</p>
+                                <p class="ordercontent">-</p>
+                                <p class="ordercontent">
+                                    <a class="order-detail" id="order-detail" href="/orderdetail?order=1">查看详情</a>
+                                </p>
+                                <p class="ordercontent">
+                                    <a class="del" id="del">删除</a>
+                                </p>
+                            </div>
+                        </li>
+                    <% } %>  
+                </ul>
+            </div>
+            <div class="pageBox">
+                <div id="page"></div>
+            </div>
+        </div>
+    </div>
+    <div id="pop-container">
+        <div id="cover-tier" class="popPosition"></div>
+        <div id="pop-tier" class="popPosition">
+            <i id="close-pop" style="color:#e53834">&#10006;</i>
+            <div class="iconfont icon-dui" style="color:#e53834;margin-top:20px">
+                <span>确定要删除吗？</span>
+            </div>
+            <button id="sure">确定</button>
+        </div>
+    </div>
+  </body>
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript"></script>
+  <script>
+    var height = window.innerHeight;
+    console.log(height-70); 
+    $('.all').css('height',height);
+    $('.slide').css('height',height-70);
+    $('.content').css('height',height-70);
+
+    //分页
+    function getzz() {
+        var a = $("ul#all li");
+        var zz =new Array(a.length);
+        for(var i=0;i <a.length;i++){
+            zz[i]=a[i].innerHTML;
+        }
+        return zz;
+    }
+    function change(e){
+        pageno=e;
+        if(e<1){
+            e=1;
+            pageno=1;
+        }
+        if(e>pageall){
+            e=pageall;
+            pageno=pageall;
+        }
+        $("#all").html("");
+        var html=' <li><div class="orderhead"><div class="ordertitle"><h3>序号</h3></div><div class="ordertitle"><h3>头像</h3></div><div class="ordertitle"><h3>用户名</h3></div><div class="ordertitle"><h3>订单编号</h3></div><div class="ordertitle"><h3>房间号</h3></div><div class="ordertitle"><h3>入住时间</h3></div><div class="ordertitle"><h3>离店日期</h3></div><div class="ordertitle"><h3>服务</h3></div><div class="ordertitle"><h3>操作</h3></div></div></li> ';
+        for(var i=0;i<pagesize;i++){
+            html += '<li>' + zz[(e-1)*pagesize+i] +'</li>';
+            if(zz[(e-1)*pagesize+i+1]==null) break;
+        }
+        $("ul#all").html(html);
+        var ye="";
+        for(var j=1;j<=pageall;j++){
+            if(e==j){
+                ye=ye+"<span><a href='#' onClick='change("+j+")' style='color:#e53834'>"+j+"</a></span> ";
+            }else{
+                ye=ye+"<a href='#' onClick='change("+j+")'>"+j+"</a> ";
+            }
+        }
+        var pageContent="";
+        pageContent +='第<span id=\"a2\">'+pageno+'</span>/';
+        pageContent +='<span id="a1">'+pageall+'</span>页';
+        pageContent +="<span id='a3' style='margin-left:10px'>"+ye+'</span>';
+        pageContent +='<a href="#" style="margin-left:10px;" onClick="change(--pageno)">上一页</a>';
+        pageContent +='<a href="#" style="margin-left:5px;" onClick="change(++pageno)">下一页</a>';
+        $("#page").html(pageContent);
+    }
+    var zz = getzz();
+    var pageno = 1 ; 
+    var pagesize = 5; 
+    if(zz.length%pagesize == 0){
+        var pageall = zz.length/pagesize;
+    }else{
+        var pageall = parseInt(zz.length/pagesize) + 1;
+    } 
+    change(1);
+
+    // 点击按钮出现弹出层
+    $('.del').click(function(){
+        $('#pop-container').css('display','block');
+    })
+    // 点击右上角X弹出层隐藏
+    $('#close-pop').click(function(){
+        $('#pop-container').css('display','none');
+    })
+
+    //删除
+    var userName = "";
+    $(".del").click(function(){
+        userName = $(this).attr("id");
+        console.log(userName);
+    })
+
+    $('#sure').click(function(){
+        $.ajax({
+            url: '/delorder',
+            method: 'POST',
+            data:{
+                userName: userName
+            },
+            success: function(data){
+                if(data == 'success'){
+                    alert('删除成功');
+                }else{
+                    alert('删除失败')
+                }
+                window.location.href='/order';
+            }
+        })
+    })
+  </script>
+</html>

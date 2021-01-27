@@ -1,0 +1,33 @@
+.number{
+    width: 74%;
+    height: 200px;
+    float: left;
+    margin-left: 13%;
+    margin-top: 70px;
+    text-align: center;
+    /* background: red */
+}
+.number1{
+    width: 25%;
+    height: 200px;
+    float: left;
+    background: #e2211c;
+    opacity: 0.9;
+}
+.p1{
+    font-size: 50px;
+    margin-top: 50px;
+}
+.p2{
+    font-size: 23px;
+    margin-top: 25px;
+}
+.welcome{
+    width: 34%;
+    float: left;
+    margin-top: 50px;
+    margin-left: 33%;
+    color: #e2211c;
+    font-size: 2em;
+    /* background: pink; */
+}

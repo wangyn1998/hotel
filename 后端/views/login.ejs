@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>酒店管理系统</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1506624_jkvot6m5nu8.css">
+  </head>
+  <body>
+    <div class="loginImage">
+      <div class="box">
+        <h3>酒店管理系统</h3>
+        <input id="adminName" type="text" placeholder="用户名"/>
+        <input id="adminPwd" type="password" placeholder="密码"/>
+        <button id="login">登 录</button>
+      </div>
+    </div>
+  </body>
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript"></script>
+  <script>
+    //设置高度
+    var height = window.innerHeight;
+    console.log(height); 
+    $('.loginImage').css('height',height);
+
+    // 验证身份
+    $('#login').click(function(){
+      $.ajax({
+        url: '/login',
+        method: 'POST',
+        data: {
+          adminName: $('#adminName').val(),
+          adminPwd: $('#adminPwd').val()
+        },
+        success: function(data){
+          if(data == 'success'){
+            window.location.href = '/home';
+          }else{
+            alert('用户名或密码错误！')
+          }
+        }
+      })
+    });
+  </script>
+</html>

@@ -1,0 +1,164 @@
+.remain-amount{
+    float: left;
+    margin-left: 5%;
+    font-size: 1.7em;
+}
+/* 搜索框 */
+.search-type{
+    width: 9%;
+    height: 39px;
+    margin-left: 40%;
+    border: 2px solid#e53834;
+    padding-left: 10px;
+    float:left;
+}
+.search-date{
+    width: 15%;
+    height: 35px;
+    margin-left: 1%;
+    border: 2px solid#e53834;
+    padding-left: 10px;
+    float:left;
+}
+.search-button{
+    width: 7%;
+    height: 39px;
+    border: none;
+    background:  #e53834;
+    color: white;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+/* 内容 */
+.reserveMain{
+    width: 90%;
+    height: 324px;
+    float: left;
+    margin-left: 5%;
+    margin-top: 2%;
+    background: white;
+    border: 1px solid gray;
+    border-top: none;
+}
+.reservehead{
+    width: 100%;
+    height: 60px;
+    float: left;
+    background:#e53834;
+}
+.reservetitle{
+    width: 11.11%;
+    height: 100%;
+    float: left;
+    /* border: 1px solid blue; */
+    color: white;
+    text-align: center;
+    line-height: 3.5em;
+}
+.reservebody{
+    width: 100%;
+    height: 52px;
+    float: left;
+    background: white; 
+    border-bottom: 1px solid gray;
+}
+.reservecontent{
+    width: 11.11%;
+    height: 100%;
+    float: left; 
+    text-align: center;
+    line-height: 3.1em;
+    /* background: pink; */
+}
+.reserveImg{
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    margin-top: 3px;
+}
+.reservecontent a{
+    color: #e53834;
+    text-decoration: underline;
+}
+/* 页码 */
+.pageBox{
+    width: 80%;
+    float: left; 
+    margin-left: 10%;
+    margin-top: 3%;
+    /* background: yellow; */
+    text-align: center;
+}
+/* 返回按钮 */
+.return-button{
+    width: 55px;
+    height: 30px;
+    float: left;
+    border: none;
+    background:  #e53834;
+    color: white;
+    margin-top: 3%;
+}
+#pop-container,#pop-container1 {
+    display: none;
+    z-index: 999;
+}
+/*遮盖层*/
+#cover-tier {
+    background-color: #D9D9D9;
+    opacity: 0.5; 
+}
+/*弹出层内容*/
+#pop-tier {
+    width: 240px;
+    height: 200px;
+    border: 1px solid #C3C3C3;
+    background-color: white;
+    margin: auto;
+    text-align: center;
+}
+#pop-tier,#pop-tier1 p{
+    color: #e53834;
+    line-height: 2em;
+}
+/* 弹出框2 */
+#pop-tier1 {
+    width: 280px;
+    height: 290px;
+    border: 1px solid #C3C3C3;
+    background-color: white;
+    margin: auto;
+    text-align: center;
+}
+#pop-tier1 textarea{
+    width: 200px;
+    height: 150px;
+    margin-top: 10px;
+    line-height: 2em;
+    border: 1.5px solid #e53834;
+}
+/*关闭弹框*/
+#close-pop,#close-pop1 {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+}
+.popPosition {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+#agree-sure,#refuse-sure{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 50px;
+    height: 25px;
+    border: none;
+    color: white;
+    background: #e53834;
+}
+

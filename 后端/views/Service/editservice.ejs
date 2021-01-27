@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>酒店管理系统</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href='/stylesheets/service.css' />
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1506624_jkvot6m5nu8.css">
+</head>
+  <body>
+    <div class="all">
+        <div class="header">
+            <h1>酒店管理系统</h1>
+            <img src="./images/manager.jpg" class="manager"/>
+            <a href="/">退出登录</a>
+        </div>
+        <div class="slide">
+            <a href="/user">
+                <div class="nav" style="margin-top: 7%;">用户管理</div>
+            </a>
+            <a href="/room">
+                <div class="nav">客房管理</div>
+            </a>
+            <a href="/reserve">
+                <div class="nav">预订管理</div>
+            </a>
+            <a href="/order">
+                <div class="nav">订单管理</div>
+            </a>
+            <a href="/service">
+                <div class="nav" style="background: gray;">服务管理</div>
+            </a>
+            <a href="/comment">
+                <div class="nav">评论管理</div>
+            </a>
+        </div>
+        <div class="content">
+            <p class="editHead">编辑客房</p>
+            <div class="editBox">
+                <div class="editBody" style="margin-top: 10%;">
+                    <p>服务名称</p>
+                    <input type="text" value="-" id="serviceName"/>
+                </div>
+                <div class="editBody">
+                    <p>价格</p>
+                    <input type="text" value="-" id="servicePrice"/>
+                </div>
+                <div class="editBody">
+                    <p>详细信息</p>
+                    <textarea id="serviceInf">xxxxxx</textarea>
+                </div>
+            </div>
+            <div class="room-button">
+                <a href="/service">
+                    <button class="cancel-button">取 消</button>
+                </a>
+                <button class="ok-button">保 存</button>
+            </div>
+        </div>
+    </div>
+  </body>
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript"></script>
+  <script>
+    var height = window.innerHeight;
+    console.log(height-70); 
+    $('.all').css('height',height);
+    $('.slide').css('height',height-70);
+    $('.content').css('height',height-70);
+
+    $('.ok-button').click(function(){
+        $.ajax({
+            url: '/editService',
+            method: 'POST',
+            data: {
+                serviceName: $('#serviceName').val(),
+                servicePrice: $('#servicePrice').val(),
+                serviceInf: $('#serviceInf').val()
+            },
+            success: function(data){
+                if(data == 'success'){
+                    alert('编辑成功');
+                    window.location.href = '/service';
+                }else{
+                    alert('编辑失败');
+                }
+            }
+        })
+    })
+  </script>
+</html>
