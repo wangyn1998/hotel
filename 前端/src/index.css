@@ -1,0 +1,418 @@
+*{
+  padding: 0;
+  margin:0;
+}
+ul{
+  padding: 0;
+  margin:0;
+}
+li{
+  padding: 0;
+  margin: 0;
+}
+ul,li{
+  list-style: none;
+}
+.bottom{
+  width: 25%;
+  float: left;
+  color:#e2211c;
+  text-align: center;
+  margin-top: 20px;
+}
+.bottom a{
+  text-align: center;
+  color:#e2211c;
+  text-decoration: none;
+}
+.bottom a p{
+  margin-top: -2px;
+  
+}
+.login-box{
+  height: 50px;
+  width: 60%;
+  border-radius: 10px;
+  border: #e2211c solid 2px;
+  margin-top: 40px;
+  font-size:larger;
+  padding-left: 10px;
+}
+.login-button{
+  height: 40px;
+  width: 30%;
+  border-radius: 10px;
+  background-color: #e2211c;
+  color: white;
+  margin-top: 50px;
+  font-size: larger;
+  text-align: center;
+  margin-left: 35%;
+  line-height: 40px;
+}
+.login-button a{
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  margin: 0 auto;
+}
+.login-forget{
+  margin-top: 20px;
+  margin-left: 70px ;
+  float: left;
+}
+.login-register{
+  margin-top: 20px;
+  margin-left: 140px;
+  float: left;
+}
+.register-topBar{
+  height: 50px;
+  background-color: #e2211c;
+  width: 100%;
+  padding-left: 15px;
+  padding-top: 22px;
+  color: white;
+}
+.register-topBar a{
+  text-decoration: none;
+  color: white;
+  float: left;
+}
+.register-topBar p{
+  color: white;
+  float: left;
+  margin-left: 160px;
+  font-size: 150%;
+}
+.register-bar{
+  height: 80px;
+  width: 100%;
+}
+.register-bar input{
+  height: 60%;
+  width: 85%;
+  margin-left: 25px;
+  margin-top: 20px;
+  border-radius: 10px;
+  border:#e2211c 2px solid;
+  font-size: larger;
+}
+.register-bar-yzm{
+  height: 80px;
+  width: 100%;
+}
+.register-bar-yzm input{
+  height: 60%;
+  width: 50%;
+  margin-left: 25px;
+  margin-top: 20px;
+  border-radius: 10px;
+  border:#e2211c 2px solid;
+  font-size: larger;
+  float: left;
+}
+.register-bar-yzm .get{
+  float: left;
+  border-radius: 10px;
+  background-color: #e2211c;
+  margin-left: 5%;
+  margin-top: 20px;
+  height: 60%;
+  width: 30%;
+  color: white;
+  text-align: center;
+  line-height: 50px;
+  font-size: larger;
+}
+.register-button{
+  height: 45px;
+  width: 40%;
+  margin-left: 30%;
+  background-color: #e2211c;
+  border-radius: 10px;
+  color: white;
+  margin-top: 40px;
+  text-align: center;
+}
+.register-button a{
+  text-decoration: none;
+  color: white;
+  line-height: 50px;
+}
+.topBar{
+  height: 70px;
+  background-color: #e2211c;
+  width: 100%;
+  color: white;
+  text-decoration: none;
+}
+.topBar a{
+  margin-left: 15px;
+  margin-top: 22px;
+  text-decoration: none;
+  color: white;
+  float: left;
+}
+.topBar p{
+  color: white;
+  float: left;
+  margin-left: 120px;
+  font-size: 150%;
+  margin-top: 22px;
+}
+.room{
+  width: 100%;
+  height: 180px;
+  margin-top: 10px;
+  border-top: lightgray solid 1px;
+  border-bottom: lightgray solid 1px;
+  color: black;
+}
+.room img{
+  height: 80%;
+  float: left;
+  margin-top: 5%;
+  margin-left: 10px;
+}
+.room .text{
+  float: left;
+  margin-left: 10px;
+  height: 80%;
+  margin-top: 5%;
+  width: 250px;
+  line-height: 50px;
+}
+.room-date{
+  margin :0 ;
+  padding-left: 5px;
+  padding-top: 25px;
+}
+.room-date p{
+  margin: 0;
+  margin-left: 10px;
+  float: left;
+  font-size: 50%;
+
+}
+.room-date input{
+  margin-left: 5px;
+  border: lightgray solid 1px;
+  border-radius: 5px;
+  float: left;
+}
+.contact{
+  float: left;
+  color: white;
+  margin-top: -5px;
+  margin-left: 60px;
+}
+.contact p{
+  font-size: 80%;
+  margin: 0;
+}
+.service-box{
+  width: 49.5%;
+  border: lightgray solid 1px;
+  float: left;
+  height: 250px;
+  text-align: center;
+}
+.service-box img{
+  width: 50%;
+  margin-top: 20px;
+}
+.service-box p{
+  margin-top: 20px;
+  font-size: large;
+  color: black;
+}
+.service-box h2{
+  margin-top: 30px;
+  color: red;
+}
+.roombook-text1{
+  margin-left: 30px;
+  margin-top: 10px;
+  height: 20px;
+}
+.roombook-text1 p{
+  font-size: 100%;
+  float: left;
+  margin-left: 20px;
+}
+.roombook-text2{
+  height: 50px;
+  margin-top: 10px;
+}
+.roombook-text2 h3{
+  color: gray;
+  float: left;
+  font-size: 120%;
+  margin-left: 20px;
+  margin-right: 40px;
+}
+.roombook-book{
+  border-top: lightgray solid 1px;
+  border-bottom: lightgray solid 1px;
+  height: 50px;
+  width: 100%;
+  margin-bottom: 100px;
+  text-align: center;
+}
+.roombook-book h{
+  float: left;
+  font-size: 200%;
+  color: red;
+  font-weight: bolder;
+  margin-left: 180px;
+}
+.roombook-book a{
+  text-decoration: none;
+  color: black;
+}
+.roombook-book div{
+  border-radius: 10px;
+  width: 100px;
+  height: 40px;
+  float: left;
+  margin-top: 5px;
+  background-color: #e2211c;
+  line-height: 40px;
+  color:white;
+  font-size: 150%;
+  margin-left: 20px;
+}
+.service-book div{
+  margin-top: 60px;
+  margin-left: 40px;
+  font-size: 150% ;
+  font-weight: bolder;
+}
+.service-book p{
+  margin-top: 50px;
+  margin-left: 40px;
+}
+.servicebook-book{
+  border-top: lightgray solid 1px;
+  border-bottom: lightgray solid 1px;
+  height: 50px;
+  width: 100%;
+  margin-top: 100px;
+  text-align: center;
+}
+.servicebook-book h{
+  float: left;
+  font-size: 200%;
+  color: red;
+  font-weight: bolder;
+  margin-left: 180px;
+}
+.servicebook-book a{
+  text-decoration: none;
+}
+.servicebook-book div{
+  border-radius: 10px;
+  width: 100px;
+  height: 40px;
+  float: left;
+  margin-top: 5px;
+  background-color: #e2211c;
+  line-height: 40px;
+  color:white;
+  font-size: 150%;
+  margin-left: 20px;
+}
+.mytop{
+  margin-top: 4px;
+  background-color: #e2211c;
+  border-radius: 0 0 50px 50px;
+  width: 100%;
+  height: 200px;
+  text-align: center;
+  padding-top: 15px;
+}
+.mypic{
+  margin: 0 auto;
+  background-color: white;
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+}
+.mytop p{
+  margin: 0 auto;
+  color: white;
+  font-size: 120%;
+}
+.mytop a{
+  text-decoration: none;
+}
+.myeve{
+  height: 50px;
+  width: 100%;
+  border-top: solid lightgray 1px;
+  border-bottom: solid lightgray 1px;
+}
+.myeve a{
+  text-decoration: none;
+}
+.editpic{
+  margin-top: 30px;
+  text-align: center;
+}
+.editpic .pic{
+  margin:0 auto;
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+  background-color: black;
+}
+.editpic-btn{
+  margin: 10px auto;
+  border-radius: 4px;
+  line-height: 40px;
+  text-align: center;
+  width: 100px;
+  height: 40px;
+  background-color: #e2211c;
+  color: white;
+}
+.edit-line{
+  width: 80%;
+  height: 50px;
+  border-bottom: lightgray solid 1px;
+  margin-top: 40px;
+  margin-left: 10%;
+}
+.edit-line p{
+  float: left;
+  margin-right: 20px;
+  margin-top: 20px;
+  font-size: 120%;
+}
+.edit-line input{
+  border: none;
+  float: left;
+  margin-top: 18px;
+  height: 60%;
+  width: 75%;
+  font-size: 100%;
+  outline: none;
+}
+.editbtn{
+  margin-top: 60px;
+}
+.editbtn a{
+  text-decoration: none;
+}
+.editbtn div{
+  color: white;
+  font-size: 120%;
+  line-height: 40px;
+  margin: 0 auto;
+  border-radius: 4px;
+  width: 100px;
+  height: 40px;
+  background-color: #e2211c;
+  text-align: center;
+}
