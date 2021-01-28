@@ -8,9 +8,10 @@ import My from '../containers/My/My';
 import RoomBook from '../containers/Room/RoomBook';
 import ServiceBook from '../containers/Service/ServiceBook';
 import Edit from '../containers/My/Edit';
-import Setting from '../containers/My/Setting';
+import MyOrder from '../containers/My/MyOrder';
 import Help from '../containers/My/Help';
 import About from '../containers/My/About';
+import OrderInf from '../containers/My/OrderInf';
 
 export default class AppTab extends Component {
   render() {
@@ -49,9 +50,10 @@ export default class AppTab extends Component {
         <Route path='/roombook' component={RoomBook}/>
         <Route path='/servicebook' component={ServiceBook} />
         <Route path='/edit' component={Edit} />
-        <Route path='/setting' component={Setting} />
+        <Route path='/myorder' component={MyOrder} />
         <Route path='/help' component={Help} />
         <Route path='/about' component={About} />
+        <Route path='/orderinf' component={OrderInf} />
       </Router>
     )
   }

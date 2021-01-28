@@ -416,3 +416,59 @@ ul,li{
   background-color: #e2211c;
   text-align: center;
 }
+.myorder-orderdate{
+  height: 30px;
+  width: 200px;
+  border-radius: 50px;
+  background-color: #e2211c;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+.myorder-eve{
+  height: 300px;
+  width: 90%;
+  margin-left: 20px;
+  background-color: white;
+  border-radius: 5px;
+}
+.myorder-eve a{
+  text-decoration: none;
+  color: black;
+}
+.myorder-eve .ordernum{
+  margin-left: 10px;
+  width: 95%;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: lightgray solid 1px;
+  color: gray;
+}
+.myorder-eve .title{
+  float: left;
+  font-size: 200%;
+  font-weight: bolder;
+  margin-right: 150px;
+  margin-left: 10px;
+  margin-top: 40px;
+}
+.myorder-eve .price{
+  margin-top: 40px;
+  color: red;
+  font-size: 130%;
+  font-weight: bolder;
+}
+.myorder-eve .roomnum{
+  margin-top: 30px;
+  margin-left: 10px;
+  font-size: 90%;
+}
+.myorder-eve .date{
+  margin-top: 40px;
+  font-size: 100%;
+  color: gray;
+  margin-left: 10px;
+  float: left;
+}

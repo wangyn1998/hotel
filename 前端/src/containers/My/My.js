@@ -17,8 +17,8 @@ export default class My extends Component {
                 </div>
                 <div style={{marginTop:'40px'}}>
                     <div className="myeve">
-                        <Link to="/setting">
-                            <p style={{marginTop:'12px',marginLeft:'20px',fontSize:'120%',color:'black'}}>设置</p>
+                        <Link to="/myorder">
+                            <p style={{marginTop:'12px',marginLeft:'20px',fontSize:'120%',color:'black'}}>我的订单</p>
                         </Link>
                     </div>
                     <div className="myeve">
