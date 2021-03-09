@@ -10,7 +10,7 @@
     <div class="all">
         <div class="header">
             <h1>酒店管理系统</h1>
-            <img src="./images/manager.jpg" class="manager"/>
+            <img class="manager" src=<%= manager %> />
             <a href="/">退出登录</a>
         </div>
         <div class="slide">
@@ -39,37 +39,70 @@
                 <ul id="all">
                     <!-- <li>
                         <div class="orderhead">
-                            <div class="ordertitle"><h3>序号</h3></div>
-                            <div class="ordertitle"><h3>头像</h3></div>
+                            <div class="ordertitle" style="width:5.5%;"><h3>序号</h3></div>
+                            <div class="ordertitle" style="width:6.5%;"><h3>头像</h3></div>
                             <div class="ordertitle"><h3>用户名</h3></div>
-                            <div class="ordertitle"><h3>房间号</h3></div>
-                            <div class="ordertitle"><h3>入住时间</h3></div>
+                            <div class="ordertitle" style="width:6%;"><h3>房间号</h3></div>
+                            <div class="ordertitle"><h3>入住日期</h3></div>
                             <div class="ordertitle"><h3>离店日期</h3></div>
-                            <div class="ordertitle"><h3>服务</h3></div>
-                            <div class="ordertitle"><h3>操作</h3></div>
+                            <div class="ordertitle" style="width:15%;"><h3>状态</h3></div>
+                            <div class="ordertitle"><h3>下单时间</h3></div>
+                            <div class="ordertitle" style="width:6%;"><h3>服务</h3></div>
+                            <div class="ordertitle"><h3>订单编号</h3></div>
+                            <div class="ordertitle" style="width:6%;"><h3>操作</h3></div>
                         </div>
                     </li> -->
-                    <% for(var i = 0 ; i <  7; i++) {%>
-                        <li>
-                            <div class="orderbody">
-                                <p class="ordercontent"><%= i+1 %></p>
-                                <div class="ordercontent">
-                                    <img class="orderImg" src="./images/user1.jpg"/> 
+                    <% if(data.length == 0){ %>
+                        <li>&nbsp;</li>
+                    <% }else{ %>
+                        <% for(var i = 0 ; i < data.length; i++) {%>
+                            <li>
+                                <div class="orderbody">
+                                    <p class="ordercontent" style="width:5.5%;"><%= i+1 %></p>
+                                    <div class="ordercontent" style="width:6.5%;">
+                                        <img class="orderImg" src=<%= data[i].userImage %>/> 
+                                    </div>
+                                    <p class="ordercontent" style="font-size:0.9em;line-height:3.6em;overflow:hidden;">
+                                        <%= data[i].userName %>
+                                    </p>
+                                    <p class="ordercontent" style="width:6%;">
+                                        <%= data[i].number %>
+                                    </p>
+                                    <p class="ordercontent" style="font-size:0.9em;line-height:3.6em;">
+                                        <%= data[i].inTime %>
+                                    </p>
+                                    <p class="ordercontent" style="font-size:0.9em;line-height:3.6em;">
+                                        <%= data[i].outTime %>
+                                    </p>
+                                    <p class="ordercontent" style="width:15%;font-size:0.9em;line-height:3.6em;">
+                                        <span id="state" style="color:gray">
+                                            <%= data[i].state %>
+                                        </span>
+                                        <select id=<%= data[i].orderNumber %>>
+                                            <option value="更换状态">更换状态</option>
+                                            <option value="预订成功">预订成功</option>
+                                            <option value="正在进行">正在进行</option>
+                                            <option value="已完成">已完成</option>
+                                        </select>
+                                    </p>
+                                    <p class="ordercontent" style="font-size:0.9em;line-height:3.6em;">
+                                        <%= data[i].orderTime %>
+                                    </p>
+                                    <p class="ordercontent" style="width:6%;">
+                                        <a class="order-detail" href="/orderdetail?ordernumber=<%= data[i].orderNumber %>">
+                                            查看
+                                        </a>
+                                    </p>
+                                    <p class="ordercontent" style="font-size:0.9em;line-height:3.6em;">
+                                        <%= data[i].orderNumber %>
+                                    </p>
+                                    <p class="ordercontent" style="width:6%;">
+                                        <a class="del" id=<%= data[i].orderNumber %>>删除</a>
+                                    </p>
                                 </div>
-                                <p class="ordercontent">用户x</p>
-                                <p class="ordercontent">xxxxxxxx</p>
-                                <p class="ordercontent">-</p>
-                                <p class="ordercontent">-</p>
-                                <p class="ordercontent">-</p>
-                                <p class="ordercontent">
-                                    <a class="order-detail" id="order-detail" href="/orderdetail">查看详情</a>
-                                </p>
-                                <p class="ordercontent">
-                                    <a class="del" id="del">删除</a>
-                                </p>
-                            </div>
-                        </li>
-                    <% } %>  
+                            </li>
+                        <% } %>  
+                    <% } %>
                 </ul>
             </div>
             <div class="pageBox">
@@ -120,7 +153,21 @@
             pageno=pageall;
         }
         $("#all").html("");
-        var html=' <li><div class="orderhead"><div class="ordertitle"><h3>序号</h3></div><div class="ordertitle"><h3>头像</h3></div><div class="ordertitle"><h3>用户名</h3></div><div class="ordertitle"><h3>订单编号</h3></div><div class="ordertitle"><h3>房间号</h3></div><div class="ordertitle"><h3>入住时间</h3></div><div class="ordertitle"><h3>离店日期</h3></div><div class="ordertitle"><h3>服务</h3></div><div class="ordertitle"><h3>操作</h3></div></div></li> ';
+        var html='<li>'+
+                    '<div class="orderhead">'+
+                        '<div class="ordertitle" style="width:5.5%;"><h3>序号</h3></div>'+
+                        '<div class="ordertitle" style="width:6.5%;"><h3>头像</h3></div>'+
+                        '<div class="ordertitle"><h3>用户名</h3></div>'+
+                        '<div class="ordertitle" style="width:6%;"><h3>房间号</h3></div>'+
+                        '<div class="ordertitle"><h3>入住日期</h3></div>'+
+                        '<div class="ordertitle"><h3>离店日期</h3></div>'+
+                        '<div class="ordertitle" style="width:15%;"><h3>订单状态</h3></div>'+
+                        '<div class="ordertitle"><h3>下单日期</h3></div>'+
+                        '<div class="ordertitle" style="width:6%;"><h3>服务</h3></div>'+
+                        '<div class="ordertitle"><h3>订单编号</h3></div>'+
+                        '<div class="ordertitle" style="width:6%;"><h3>操作</h3></div>'+
+                    '</div>'+
+                '</li>';
         for(var i=0;i<pagesize;i++){
             html += '<li>' + zz[(e-1)*pagesize+i] +'</li>';
             if(zz[(e-1)*pagesize+i+1]==null) break;
@@ -152,5 +199,59 @@
     } 
     change(1);
 
+    // 点击按钮出现弹出层
+    $('.del').click(function(){
+        $('#pop-container').css('display','block');
+    })
+    // 点击右上角X弹出层隐藏
+    $('#close-pop').click(function(){
+        $('#pop-container').css('display','none');
+    })
+    //改变订单状态
+    $('select').blur(function(){
+        var state = $(this).val();
+        var orderNumber = $(this).attr("id");
+        console.log(state,orderNumber);
+        $.ajax({
+            url: '/changeState',
+            method: 'POST',
+            data:{
+                orderNumber: orderNumber,
+                state: state
+            },
+            success: function(data){
+                if(data == 'success'){
+                    alert('改变状态成功');
+                }else{
+                    alert('改变状态失败');
+                }
+                window.location.href='/order';
+            }
+        })
+    })
+    //删除
+    var orderNumber = "";
+    $(".del").click(function(){
+        orderNumber = $(this).attr("id");
+        console.log(orderNumber);
+    })
+
+    $('#sure').click(function(){
+        $.ajax({
+            url: '/delorder',
+            method: 'POST',
+            data:{
+                orderNumber: orderNumber
+            },
+            success: function(data){
+                if(data == 'success'){
+                    alert('删除成功');
+                }else{
+                    alert('删除失败')
+                }
+                window.location.href='/order';
+            }
+        })
+    })
   </script>
 </html>

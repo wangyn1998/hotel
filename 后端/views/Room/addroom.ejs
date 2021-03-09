@@ -10,7 +10,7 @@
     <div class="all">
         <div class="header">
             <h1>酒店管理系统</h1>
-            <img src="./images/manager.jpg" class="manager"/>
+            <img class="manager" src=<%= manager %> />
             <a href="/">退出登录</a>
         </div>
         <div class="slide">
@@ -38,15 +38,15 @@
             <div class="editBox">
                 <div class="editBody" style="margin-top: 7%;">
                     <p>房型</p>
-                    <input type="text" value="" id="roomType"/>
+                    <input type="text" id="roomType"/>
                 </div>
                 <div class="editBody">
                     <p>房间号</p>
-                    <input type="text" value="" id="roomNum"/>
+                    <input type="text" id="roomNum"/>
                 </div>
                 <div class="editBody">
                     <p>价格</p>
-                    <input type="text" value="" id="roomPrice"/>
+                    <input type="text" id="roomPrice"/>
                 </div>
                 <div class="editBody">
                     <p>基本信息</p>
@@ -73,7 +73,7 @@
 
     $('.ok-button').click(function(){
         $.ajax({
-            url: 'addRoom',
+            url: '/addRoom',
             method: 'POST',
             data:{
                 roomType: $('#roomType').val(),

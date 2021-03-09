@@ -10,7 +10,7 @@
     <div class="all">
         <div class="header">
             <h1>酒店管理系统</h1>
-            <img src="./images/manager.jpg" class="manager"/>
+            <img class="manager" src=<%= manager %> />
             <a href="/">退出登录</a>
         </div>
         <div class="slide">
@@ -48,23 +48,27 @@
                             <div class="usertitle"><h3>操作</h3></div>
                         </div>
                     </li> -->
-                    <% for(var i = 0 ; i <  7; i++) {%>
-                        <li>
-                            <div class="userbody">
-                                <p class="usercontent"><%= i+1 %></p>
-                                <div class="usercontent">
-                                    <img class="userImg" src="./images/user1.jpg"/> 
+                    <% if(data.length == 0){ %>
+                        <li>&nbsp;</li>
+                    <% }else{ %>
+                        <% for(var i = 0 ; i < data.length; i++) {%>
+                            <li>
+                                <div class="userbody">
+                                    <p class="usercontent"><%= i+1 %></p>
+                                    <div class="usercontent">
+                                        <img class="userImg" src=<%= data[i].userImage %>/> 
+                                    </div>
+                                    <p class="usercontent"><%= data[i].userName %></p>
+                                    <p class="usercontent"><%= data[i].userPhone %></p>
+                                    <p class="usercontent"><%= data[i].userBir %></p>
+                                    <p class="usercontent"><%= data[i].userDay %></p>
+                                    <p class="usercontent">
+                                        <a class="del" id=<%= data[i].userId %>>删除</a>
+                                    </p>
                                 </div>
-                                <p class="usercontent">用户x</p>
-                                <p class="usercontent">-</p>
-                                <p class="usercontent">-</p>
-                                <p class="usercontent">-</p>
-                                <p class="usercontent">
-                                    <a class="del" id="del">删除</a>
-                                </p>
-                            </div>
-                        </li>
-                    <% } %>  
+                            </li>
+                        <% } %>    
+                    <% } %>   
                 </ul>
             </div>
             <div class="pageBox">
@@ -115,7 +119,17 @@
             pageno=pageall;
         }
         $("#all").html("");
-        var html=' <li><div class="userhead"><div class="usertitle"><h3>序号</h3></div><div class="usertitle"><h3>头像</h3></div><div class="usertitle"><h3>用户名</h3></div><div class="usertitle"><h3>手机号</h3></div><div class="usertitle"><h3>生日</h3></div><div class="usertitle"><h3>注册日期</h3></div><div class="usertitle"><h3>操作</h3></div></div></li> ';
+        var html='<li>'+
+                    '<div class="userhead">'+
+                        '<div class="usertitle"><h3>序号</h3></div>'+
+                        '<div class="usertitle"><h3>头像</h3></div>'+
+                        '<div class="usertitle"><h3>用户名</h3></div>'+
+                        '<div class="usertitle"><h3>手机号</h3></div>'+
+                        '<div class="usertitle"><h3>生日</h3></div>'+
+                        '<div class="usertitle"><h3>注册日期</h3></div>'+
+                        '<div class="usertitle"><h3>操作</h3></div>'+
+                    '</div>'+
+                '</li>';
         for(var i=0;i<pagesize;i++){
             html += '<li>' + zz[(e-1)*pagesize+i] +'</li>';
             if(zz[(e-1)*pagesize+i+1]==null) break;
@@ -147,6 +161,38 @@
     } 
     change(1);
 
+    // 点击按钮出现弹出层
+    $('.del').click(function(){
+        $('#pop-container').css('display','block');
+    })
+    // 点击右上角X弹出层隐藏
+    $('#close-pop').click(function(){
+        $('#pop-container').css('display','none');
+    })
 
+    //删除
+    var userId = "";
+    $(".del").click(function(){
+        userId = $(this).attr("id");
+        console.log(userId);
+    })
+
+    $('#sure').click(function(){
+        $.ajax({
+            url: '/deluser',
+            method: 'POST',
+            data:{
+                userId: userId
+            },
+            success: function(data){
+                if(data == 'success'){
+                    alert('删除成功');
+                }else{
+                    alert('删除失败');
+                }
+                window.location.href = '/user';
+            }
+        })
+    })
   </script>
 </html>

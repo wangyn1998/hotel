@@ -10,7 +10,7 @@
     <div class="all">
         <div class="header">
             <h1>酒店管理系统</h1>
-            <img src="./images/manager.jpg" class="manager"/>
+            <img class="manager" src=<%= manager %> />
             <a href="/">退出登录</a>
         </div>
         <div class="slide">
@@ -42,31 +42,34 @@
                             <div class="roomtitle"><h3>房型</h3></div>
                             <div class="roomtitle"><h3>房间号</h3></div>
                             <div class="roomtitle"><h3>价格</h3></div>
-                            <div class="roomtitle"><h3>余量</h3></div>
+                            <div class="roomtitle"><h3>状态</h3></div>
                             <div class="roomtitle"><h3>基本信息</h3></div>
                             <div class="roomtitle"><h3>操作</h3></div>
                         </div>
                     </li> -->
-                    
-                    <% for(var i = 0 ; i <  7; i++) {%>
-                        <li>
-                            <div class="roombody">
-                                <p class="roomcontent">标准间</p>
-                                <p class="roomcontent" style="font-size: 0.8em;line-height: 4em">
-                                    101-105 201-205 301-305
-                                </p>
-                                <p class="roomcontent">-</p>
-                                <p class="roomcontent">-</p>
-                                <p class="roomcontent">-</p>
-                                <p class="roomcontent">
-                                    <a class="edit" href="/editroom">
-                                        编辑
-                                    </a>
-                                    <a class="del" id="del" style="margin-left: 5%">删除</a>
-                                </p>
-                            </div>
-                        </li>
-                    <% } %>  
+                    <% if(data.length == 0){ %>
+                        <li>&nbsp;</li>
+                    <% }else{ %>
+                        <% for(var i = 0 ; i < data.length; i++) {%>
+                            <li>
+                                <div class="roombody">
+                                    <p class="roomcontent"><%= data[i].roomType %></p>
+                                    <p class="roomcontent"><%= data[i].roomNumber %></p>
+                                    <p class="roomcontent"><%= data[i].roomPrice %></p>
+                                    <p class="roomcontent">
+                                        <a class="state" id="state" href='/roomState?roomnum=<%= data[i].roomNumber %>'>查看详情</a>
+                                    </p>
+                                    <p class="roomcontent" style="font-size: 0.9em;line-height: 3.4em;">
+                                        <%= data[i].roomInf %>
+                                    </p>
+                                    <p class="roomcontent">
+                                        <a class="edit" id="edit" href='/editroom?roomId=<%= data[i].roomId %>'>编辑</a>
+                                        <a class="del" style="margin-left: 5%" id=<%= data[i].roomId %>>删除</a>
+                                    </p>
+                                </div>
+                            </li>
+                        <% } %> 
+                    <% } %>
                 </ul>
             </div>
             <div class="pageBox">
@@ -117,7 +120,16 @@
             pageno=pageall;
         }
         $("#all").html("");
-        var html=' <li><div class="roomhead"><div class="roomtitle"><h3>房型</h3></div><div class="roomtitle"><h3>房间号</h3></div><div class="roomtitle"><h3>价格</h3></div><div class="roomtitle"><h3>余量</h3></div><div class="roomtitle"><h3>基本信息</h3></div><div class="roomtitle"><h3>操作</h3></div></div></li> ';
+        var html='<li>'+
+                    '<div class="roomhead">'+
+                        '<div class="roomtitle"><h3>房型</h3></div>'+
+                        '<div class="roomtitle"><h3>房间号</h3></div>'+
+                        '<div class="roomtitle"><h3>价格</h3></div>'+
+                        '<div class="roomtitle"><h3>状态</h3></div>'+
+                        '<div class="roomtitle"><h3>基本信息</h3></div>'+
+                        '<div class="roomtitle"><h3>操作</h3></div>'+
+                    '</div>'+
+                '</li>';
         for(var i=0;i<pagesize;i++){
             html += '<li>' + zz[(e-1)*pagesize+i] +'</li>';
             if(zz[(e-1)*pagesize+i+1]==null) break;
@@ -148,5 +160,39 @@
         var pageall = parseInt(zz.length/pagesize) + 1;
     } 
     change(1);
+
+    // 点击按钮出现弹出层
+    $('.del').click(function(){
+        $('#pop-container').css('display','block');
+    })
+    // 点击右上角X弹出层隐藏
+    $('#close-pop').click(function(){
+        $('#pop-container').css('display','none');
+    })
+
+    // 删除
+    var roomId = "";
+    $(".del").click(function(){
+        roomId = $(this).attr("id");
+        console.log(roomId);
+    })
+
+    $('#sure').click(function(){
+        $.ajax({
+            url: '/delroom',
+            method: 'POST',
+            data:{
+                roomId : roomId
+            },
+            success: function(data){
+                if(data == 'success'){
+                    alert('删除成功');
+                }else{
+                    alert('删除失败');
+                }
+                window.location.href = '/room';
+            }
+        })
+    })
   </script>
 </html>

@@ -34,7 +34,7 @@
     background:#e53834;
 }
 .commenttitle{
-    width: 12%;
+    width: 10%;
     height: 100%;
     float: left;
     /* border: 1px solid blue; */
@@ -50,7 +50,7 @@
     border-bottom: 1px solid gray;
 }
 .commentcontent{
-    width: 12%;
+    width: 10%;
     height: 100%;
     float: left; 
     text-align: center;
@@ -158,5 +158,58 @@
     border: none;
     color: white;
     background: #e53834;
+}
+/* 查看详情 */
+.postHead{
+    width: 10%;
+    height: 35px;
+    margin-top: 3%;
+    margin-left: 10%;
+    color: #e53834;
+    font-size: 1.1em;
+    border : 1.5px solid #e53834;
+}
+.postBox{
+    width: 60%;
+    height: 70%;
+    margin-top: 2%;
+    margin-left: 10%;
+    background: white;
+    border: 2px solid #dcdbd9;
+}
+.postBody{
+    width: 100%;
+    height: 30%;
+    background: #e53834;
+    opacity: 0.9;
+    border-bottom: 2px solid #dcdbd9;
+}
+.userImg{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+.replyBody{
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid #dcdbd9;
+}
+.replyBody p{
+    float: left;
+    line-height: 3em;
+}
+.replyBody a{
+    color: #e53834;
+    text-decoration: underline;
+}
+.reply-button{
+    width: 45px;
+    height: 25px;
+    float: right;
+    margin: 35px;
+    color:white;
+    background:#e53834;
+    border: 1px solid white;
 }
 

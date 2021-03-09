@@ -3,7 +3,7 @@
   <head>
     <title>酒店管理系统</title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
-    <link rel='stylesheet' href='/stylesheets/order.css' />
+    <link rel='stylesheet' href='/stylesheets/room.css' />
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1506624_jkvot6m5nu8.css">
 </head>
   <body>
@@ -18,13 +18,13 @@
                 <div class="nav" style="margin-top: 7%;">用户管理</div>
             </a>
             <a href="/room">
-                <div class="nav">客房管理</div>
+                <div class="nav" style="background: gray;">客房管理</div>
             </a>
             <a href="/reserve">
                 <div class="nav">预订管理</div>
             </a>
-            <a href="/order">
-                <div class="nav" style="background: gray;">订单管理</div>
+            <a href="/room">
+                <div class="nav">订单管理</div>
             </a>
             <a href="/service">
                 <div class="nav">服务管理</div>
@@ -34,23 +34,22 @@
             </a>
         </div>
         <div class="content">
-            <div style='margin-top: 2%;margin-left: 16%'>
+            <div style='margin-top: 3%;margin-left: 16%'>
                 <p style='float:left;font-size: 1.3em;'>
-                    用户名：<%= user[0].userName %>
-                    <span style="margin-left: 15px;">房间号：<%= user[0].number %></span>
+                    <span style="margin-left: 15px;">房间号：<%= number %></span>
                 </p>
-                <a href="/order">
+                <a href="/room">
                     <button class="return-button2">返回</button>
                 </a>
             </div>
-            <div class="orderMain1">
+            <div class="roomMain1">
                 <ul id="all">
                     <!-- <li>
-                        <div class="orderhead1">
-                            <div class="ordertitle1"><h3>序号</h3></div>
-                            <div class="ordertitle1"><h3>服务名称</h3></div>
-                            <div class="ordertitle1"><h3>服务时间</h3></div>
-                            <div class="ordertitle1"><h3>价格</h3></div>
+                        <div class="roomhead1">
+                            <div class="roomtitle1"><h3>序号</h3></div>
+                            <div class="roomtitle1"><h3>入住日期</h3></div>
+                            <div class="roomtitle1"><h3>离店日期</h3></div>
+                            <div class="roomtitle1"><h3>状态</h3></div>
                         </div>
                     </li> -->
                     <% if(data.length == 0){ %>
@@ -58,18 +57,17 @@
                     <% }else{ %>
                         <% for(var i = 0 ; i < data.length; i++) {%>
                             <li>
-                                <div class="orderbody">
-                                    <p class="ordercontent1"><%= i+1 %></p>
-                                    <p class="ordercontent1"><%= data[i].serviceName %></p>
-                                    <p class="ordercontent1"><%= data[i].serviceDate %></p>
-                                    <p class="ordercontent1"><%= price[i] %></p>
+                                <div class="roombody">
+                                    <p class="roomcontent1"><%= i+1 %></p>
+                                    <p class="roomcontent1"><%= data[i].inTime%></p>
+                                    <p class="roomcontent1"><%= data[i].outTime %></p>
+                                    <p class="roomcontent1"><%= data[i].state %></p>
                                 </div>
                             </li>
                         <% } %>  
-                    <% } %>
+                    <% } %>  
                 </ul>
             </div>
-            <p class="total">合计: <%= totalPrice %>元</p>
             <div class="pageBox1">
                 <div id="page"></div>
             </div>
@@ -106,11 +104,11 @@
         }
         $("#all").html("");
         var html='<li>'+
-                    '<div class="orderhead1">'+
-                        '<div class="ordertitle1"><h3>序号</h3></div>'+
-                        '<div class="ordertitle1"><h3>服务名称</h3></div>'+
-                        '<div class="ordertitle1"><h3>服务时间</h3></div>'+
-                        '<div class="ordertitle1"><h3>价格</h3></div>'+
+                    '<div class="roomhead1">'+
+                        '<div class="roomtitle1"><h3>序号</h3></div>'+
+                        '<div class="roomtitle1"><h3>入住日期</h3></div>'+
+                        '<div class="roomtitle1"><h3>离店日期</h3></div>'+
+                        '<div class="roomtitle1"><h3>状态</h3></div>'+
                     '</div>'+
                 '</li>';
         for(var i=0;i<pagesize;i++){

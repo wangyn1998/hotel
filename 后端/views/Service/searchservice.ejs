@@ -10,7 +10,7 @@
     <div class="all">
         <div class="header">
             <h1>酒店管理系统</h1>
-            <img src="./images/manager.jpg" class="manager"/>
+            <img class="manager" src=<%= manager %> />
             <a href="/">退出登录</a>
         </div>
         <div class="slide">
@@ -46,23 +46,26 @@
                             <div class="servicetitle"><h3>操作</h3></div>
                         </div>
                     </li> -->
-    
-                    <% for(var i = 0 ; i <  7; i++) {%>
-                        <li>
-                            <div class="servicebody">
-                                <p class="servicecontent"><%= i+1 %></p>
-                                <p class="servicecontent">-</p>
-                                <p class="servicecontent">-</p>
-                                <p class="servicecontent" style="width: 36%;overflow:hidden;">-</p>
-                                <p class="servicecontent">
-                                    <a class="edit" href="/editservice">
-                                        编辑
-                                    </a>
-                                    <a class="del" id="del" style="margin-left: 5%">删除</a>
-                                </p>
-                            </div>
-                        </li>
-                    <% } %>  
+                    <% if(data.length == 0){ %>
+                        <li>&nbsp;</li>
+                    <% }else{ %>
+                        <% for(var i = 0 ; i < data.length; i++) {%>
+                            <li>
+                                <div class="servicebody">
+                                    <p class="servicecontent"><%= i+1 %></p>
+                                    <p class="servicecontent"><%= data[i].serviceName %></p>
+                                    <p class="servicecontent"><%= data[i].servicePrice %></p>
+                                    <p class="servicecontent" style="width: 36%;font-size:0.9em;line-height: 3.4em;overflow:hidden;">
+                                        <%= data[i].serviceInf %>
+                                    </p>
+                                    <p class="servicecontent">
+                                        <a class="edit" href="/editservice?serviceId=<%= data[i].serviceId %>">编辑</a>
+                                        <a class="del" style="margin-left: 5%" id=<%= data[i].serviceId %>>删除</a>
+                                    </p>
+                                </div>
+                            </li>
+                        <% } %>  
+                    <% } %> 
                 </ul>
             </div>
             <div class="pageBox">
@@ -113,7 +116,15 @@
             pageno=pageall;
         }
         $("#all").html("");
-        var html=' <li><div class="servicehead"><div class="servicetitle"><h3>序号</h3></div><div class="servicetitle"><h3>服务名称</h3></div><div class="servicetitle"><h3>价格</h3></div><div class="servicetitle" style="width: 36%;"><h3>详细信息</h3></div><div class="servicetitle"><h3>操作</h3></div></div></li> ';
+        var html='<li>'+
+                    '<div class="servicehead">'+
+                        '<div class="servicetitle"><h3>序号</h3></div>'+
+                        '<div class="servicetitle"><h3>服务名称</h3></div>'+
+                        '<div class="servicetitle"><h3>价格</h3></div>'+
+                        '<div class="servicetitle" style="width: 36%;"><h3>详细信息</h3></div>'+
+                        '<div class="servicetitle"><h3>操作</h3></div>'+
+                    '</div>'+
+                '</li>';
         for(var i=0;i<pagesize;i++){
             html += '<li>' + zz[(e-1)*pagesize+i] +'</li>';
             if(zz[(e-1)*pagesize+i+1]==null) break;
@@ -144,5 +155,39 @@
         var pageall = parseInt(zz.length/pagesize) + 1;
     } 
     change(1);
+
+    // 点击按钮出现弹出层
+    $('.del').click(function(){
+        $('#pop-container').css('display','block');
+    })
+    // 点击右上角X弹出层隐藏
+    $('#close-pop').click(function(){
+        $('#pop-container').css('display','none');
+    })
+
+    //删除服务
+    var serviceId = "";
+    $(".del").click(function(){
+        serviceId = $(this).attr("id");
+        console.log(serviceId);
+    })
+
+    $('#sure').click(function(){
+        $.ajax({
+            url: '/delservice',
+            method: 'POST',
+            data: {
+                serviceId : serviceId
+            },
+            success: function(data){
+                if(data == 'success'){
+                    alert('删除成功');
+                }else{
+                    alert('删除失败')
+                }
+                window.location.href='/service';
+            }
+        })
+    })
   </script>
 </html>

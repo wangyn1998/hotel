@@ -10,7 +10,7 @@
     <div class="all">
         <div class="header">
             <h1>酒店管理系统</h1>
-            <img src="./images/manager.jpg" class="manager"/>
+            <img class="manager" src=<%= manager %> />
             <a href="/">退出登录</a>
         </div>
         <div class="slide">
@@ -20,7 +20,7 @@
             <a href="/room">
                 <div class="nav">客房管理</div>
             </a>
-            <a href="/comment">
+            <a href="/reserve">
                 <div class="nav">预订管理</div>
             </a>
             <a href="/order">
@@ -35,7 +35,7 @@
         </div>
         <div class="content">
             <form style="margin-top: 3%;" method="post" action="searchComment">
-                <input class="search" type="text" placeholder="请输入" name="comment"/>
+                <input class="search" type="text" placeholder="请输入用户名" name="comment"/>
                 <input class="search-button" type="submit" value="搜索"/>
             </form>
             <div class="commentMain">
@@ -46,26 +46,28 @@
                             <div class="commenttitle"><h3>头像</h3></div>
                             <div class="commenttitle"><h3>用户名</h3></div>
                             <div class="commenttitle" style="width: 40%"><h3>评论</h3></div>
+                            <div class="commenttitle"><h3>详情</h3></div>
                             <div class="commenttitle"><h3>点赞数</h3></div>
                             <div class="commenttitle"><h3>操作</h3></div>
                         </div>
                     </li> -->
-                    
-                    <% for(var i = 0 ; i <  7; i++) {%>
+                    <% for(var i = 0 ; i < data.length; i++) {%>
                         <li>
                             <div class="commentbody">
                                 <p class="commentcontent"><%= i+1 %></p>
                                 <div class="commentcontent">
-                                    <img class="commentImg" src="./images/user1.jpg"/> 
+                                    <img class="commentImg" src=<%= data[i].userImage %>/> 
                                 </div>
-                                <p class="commentcontent">-</p>
-                                <p class="commentcontent" style="width: 40%;overflow: hidden;">
-                                -
+                                <p class="commentcontent"><%= data[i].userName %></p>
+                                <p class="commentcontent" style="width:40%;font-size:0.9em;line-height:3.4em;overflow:hidden;">
+                                    <%= data[i].postContent %>
                                 </p>
-                                <p class="commentcontent">-</p>
                                 <p class="commentcontent">
-                                    <a class="reply" id="reply">回复</a>
-                                    <a class="del" id="del" style="margin-left: 5%">删除</a>
+                                    <a href="/commentdetail?commentId=<%= data[i].postId %>">查看详情</a>
+                                </p>
+                                <p class="commentcontent"><%= data[i].postPointNumber %></p>
+                                <p class="commentcontent">
+                                    <a class="del" style="margin-left: 5%" id=<%= data[i].postId %>>删除</a>
                                 </p>
                             </div>
                         </li>
@@ -77,17 +79,6 @@
             </div>
         </div>
     </div>
-    <!-- 回复弹出框 -->
-    <div id="pop-container2">
-        <div id="cover-tier" class="popPosition"></div>
-        <div id="pop-tier2" class="popPosition">
-            <i id="close-pop2" style="color:#e53834">&#10006;</i>
-            <p style="margin-top: 40px;">您要回复该用户评论的是：</p>
-            <textarea id="content"></textarea>
-            <button id="reply-sure">确定</button>
-        </div>
-    </div>
-    <!-- 删除弹出框 -->
     <div id="pop-container">
         <div id="cover-tier" class="popPosition"></div>
         <div id="pop-tier" class="popPosition">
@@ -128,7 +119,17 @@
             pageno=pageall;
         }
         $("#all").html("");
-        var html=' <li><div class="commenthead"><div class="commenttitle"><h3>序号</h3></div><div class="commenttitle"><h3>头像</h3></div><div class="commenttitle"><h3>用户名</h3></div><div class="commenttitle" style="width: 40%"><h3>评论</h3></div><div class="commenttitle"><h3>点赞数</h3></div><div class="commenttitle"><h3>操作</h3></div></div></li> ';
+        var html='<li>'+
+                    '<div class="commenthead">'+
+                        '<div class="commenttitle"><h3>序号</h3></div>'+
+                        '<div class="commenttitle"><h3>头像</h3></div>'+
+                        '<div class="commenttitle"><h3>用户名</h3></div>'+
+                        '<div class="commenttitle" style="width: 40%"><h3>评论</h3></div>'+
+                        '<div class="commenttitle"><h3>详情</h3></div>'+
+                        '<div class="commenttitle"><h3>点赞数</h3></div>'+
+                        '<div class="commenttitle"><h3>操作</h3></div>'+
+                    '</div>'+
+                '</li>';
         for(var i=0;i<pagesize;i++){
             html += '<li>' + zz[(e-1)*pagesize+i] +'</li>';
             if(zz[(e-1)*pagesize+i+1]==null) break;
@@ -161,9 +162,6 @@
     change(1);
 
     // 点击按钮出现弹出层
-    $('.reply').click(function(){
-        $('#pop-container2').css('display','block');
-    })
     $('.del').click(function(){
         $('#pop-container').css('display','block');
     })
@@ -171,41 +169,12 @@
     $('#close-pop').click(function(){
         $('#pop-container').css('display','none');
     })
-    $('#close-pop2').click(function(){
-        $('#pop-container2').css('display','none');
-    })
-
-    //回复评论
-    var reply = "";
-    $(".reply").click(function(){
-        reply = $(this).attr("id");
-        console.log(reply);
-    })
-
-    $('#reply-sure').click(function(){
-        $.ajax({
-            url: '/replyComment',
-            method: 'POST',
-            data: {
-                reply: reply,
-                content: $('#content').val()
-            },
-            success: function(data){
-                if(data == 'success'){
-                    alert('操作成功');
-                }else{
-                    alert('操作失败');
-                }
-                window.location.href='/comment';
-            }
-        })
-    })
 
     //删除评论
-    var comment = "";
+    var postId = "";
     $(".del").click(function(){
-        comment = $(this).attr("id");
-        console.log(comment);
+        postId = $(this).attr("id");
+        console.log(postId);
     })
 
     $('#sure').click(function(){
@@ -213,7 +182,7 @@
             url: '/delcomment',
             method: 'POST',
             data: {
-                comment: comment
+                postId: postId
             },
             success: function(data){
                 if(data == 'success'){

@@ -34,7 +34,7 @@
     background:#e53834;
 }
 .ordertitle{
-    width: 11.11%;
+    width: 11%;
     height: 100%;
     float: left;
     /* border: 1px solid blue; */
@@ -50,7 +50,7 @@
     border-bottom: 1px solid gray;
 }
 .ordercontent{
-    width: 11.11%;
+    width: 11%;
     height: 100%;
     float: left; 
     text-align: center;
@@ -177,7 +177,7 @@
 .total{
     width: 70%;
     float: left; 
-    margin-left: 15%;
+    margin-left: 14%;
     margin-top: 2%;
     /* background: yellow; */
     text-align: right;

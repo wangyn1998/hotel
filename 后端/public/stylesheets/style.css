@@ -97,7 +97,7 @@ input,button{
   line-height: 3em; 
 }
 .nav:hover{
-  background: gray;
+  background: lightgray;
 }
 /* 内容 */
 .content{

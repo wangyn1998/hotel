@@ -10,7 +10,7 @@
     <div class="all">
         <div class="header">
             <h1>酒店管理系统</h1>
-            <img src="./images/manager.jpg" class="manager"/>
+            <img class="manager" src=<%= manager %> />
             <a href="/">退出登录</a>
         </div>
         <div class="slide">
@@ -39,39 +39,54 @@
                 <ul id="all">
                     <!-- <li>
                         <div class="reservehead">
-                            <div class="reservetitle"><h3>序号</h3></div>
+                            <div class="reservetitle" style="width:6%;"><h3>序号</h3></div>
                             <div class="reservetitle"><h3>头像</h3></div>
-                            <div class="reservetitle"><h3>用户名</h3></div>
+                            <div class="reservetitle" style="width:14%;"><h3>用户名</h3></div>
                             <div class="reservetitle"><h3>预订房型</h3></div>
-                            <div class="reservetitle"><h3>预定日期</h3></div>
-                            <div class="reservetitle"><h3>下单日期</h3></div>
+                            <div class="reservetitle"><h3>入住日期</h3></div>
+                            <div class="reservetitle"><h3>离店日期</h3></div>
                             <div class="reservetitle"><h3>备注</h3></div>
+                            <div class="reservetitle"><h3>下单日期</h3></div>
                             <div class="reservetitle"><h3>状态</h3></div>
                             <div class="reservetitle"><h3>操作</h3></div>
                         </div>
                     </li> -->
-                    <% for(var i = 0 ; i <  7; i++) {%>
-                        <li>
-                            <div class="reservebody">
-                                <p class="reservecontent"><%= i+1 %></p>
-                                <div class="reservecontent">
-                                    <img class="reserveImg" src="./images/user1.jpg"/> 
+                    <% if(data.length == 0){ %>
+                        <li>&nbsp;</li>
+                    <% }else{ %>
+                        <% for(var i = 0 ; i < data.length; i++) {%>
+                            <li>
+                                <div class="reservebody">
+                                    <p class="reservecontent" style="width:6%;"><%= i+1 %></p>
+                                    <div class="reservecontent">
+                                        <img class="reserveImg" src=<%= data[i].userImage %>/> 
+                                    </div>
+                                    <p class="reservecontent" style="width:14%;">
+                                        <%= data[i].userName %>
+                                    </p>
+                                    <p class="reservecontent"><%= data[i].roomType %></p>
+                                    <p class="reservecontent"><%= data[i].inTime %></p>
+                                    <p class="reservecontent"><%= data[i].outTime %></p>
+                                    <p class="reservecontent"><%= data[i].remark %></p>
+                                    <p class="reservecontent"><%= data[i].orderTime %></p>
+                                    <div class="state">
+                                        <p class="reservecontent" id==<%= data[i].orderNumber %>>
+                                            <%= data[i].state %>
+                                        </p>
+                                    </div>
+                                    <p class="reservecontent">
+                                        <% if(data[i].state == '已拒绝'){ %>
+                                            <a disabled style="cursor: not-allowed;">同意</a>
+                                            <a disabled style="margin-left: 5%;cursor: not-allowed;">拒绝</a>
+                                        <% }else{ %>
+                                            <a class="agree" id=<%= data[i].orderNumber %>>同意</a>
+                                            <a class="refuse" style="margin-left: 5%" id=<%= data[i].orderNumber %>>拒绝</a>
+                                        <% } %>
+                                    </p>
                                 </div>
-                                <p class="reservecontent">用户x</p>
-                                <p class="reservecontent">-</p>
-                                <p class="reservecontent">-</p>
-                                <p class="reservecontent">-</p>
-                                <p class="reservecontent">-</p>
-                                <p class="reservecontent">已同意</p>
-                                <p class="reservecontent">
-                                    <a class="agree" id="agree">
-                                        同意
-                                    </a>
-                                    <a class="refuse" id="refuse" style="margin-left: 5%">拒绝</a>
-                                </p>
-                            </div>
-                        </li>
-                    <% } %>  
+                            </li>
+                        <% } %>
+                    <% } %>     
                 </ul>
             </div>
             <div class="pageBox">
@@ -86,9 +101,8 @@
     <div id="pop-container">
         <div id="cover-tier" class="popPosition"></div>
         <div id="pop-tier" class="popPosition">
-            <i id="close-pop" style="color:#e53834">&#10006;</i>
             <div style="margin-top: 50px;">
-                <p>已同意xx用户的预订，</p>
+                <p>已同意该用户的预订，</p>
                 <p>他将入住的房间是
                     <span id="number" style="text-decoration: underline;"></span>
                 </p>
@@ -136,7 +150,20 @@
             pageno=pageall;
         }
         $("#all").html("");
-        var html=' <li><div class="reservehead"><div class="reservetitle"><h3>序号</h3></div><div class="reservetitle"><h3>头像</h3></div><div class="reservetitle"><h3>用户名</h3></div><div class="reservetitle"><h3>预订房型</h3></div><div class="reservetitle"><h3>预定日期</h3></div><div class="reservetitle"><h3>下单日期</h3></div><div class="reservetitle"><h3>备注</h3></div><div class="reservetitle"><h3>状态</h3></div><div class="reservetitle"><h3>操作</h3></div></div></li> ';
+        var html='<li>'+
+                    '<div class="reservehead">'+
+                        '<div class="reservetitle" style="width:6%;"><h3>序号</h3></div>'+
+                        '<div class="reservetitle"><h3>头像</h3></div>'+
+                        '<div class="reservetitle" style="width:14%;"><h3>用户名</h3></div>'+
+                        '<div class="reservetitle"><h3>预订房型</h3></div>'+
+                        '<div class="reservetitle"><h3>入住日期</h3></div>'+
+                        '<div class="reservetitle"><h3>离店日期</h3></div>'+
+                        '<div class="reservetitle"><h3>备注</h3></div>'+
+                        '<div class="reservetitle"><h3>下单日期</h3></div>'+
+                        '<div class="reservetitle"><h3>状态</h3></div>'+
+                        '<div class="reservetitle"><h3>操作</h3></div>'+
+                    '</div>'
+                '</li>';
         for(var i=0;i<pagesize;i++){
             html += '<li>' + zz[(e-1)*pagesize+i] +'</li>';
             if(zz[(e-1)*pagesize+i+1]==null) break;
@@ -167,5 +194,69 @@
         var pageall = parseInt(zz.length/pagesize) + 1;
     } 
     change(1);
+
+    // 点击按钮出现弹出层
+    $('.refuse').click(function(){
+        $('#pop-container1').css('display','block');
+    })
+    // 点击右上角X弹出层隐藏
+    $('#close-pop1').click(function(){
+        $('#pop-container1').css('display','none');
+    })
+    
+    //同意预订
+    var agree = "";
+    $(".agree").click(function(){
+        agree = $(this).attr("id");
+        console.log(agree);
+        $.ajax({
+            url: '/agreeReserve',
+            method: 'POST',
+            data:{
+                agree: agree
+            },
+            success: function(data){
+                if(data.indexOf('success') != -1 ){
+                    $('#pop-container').css('display','block');
+                    $('#number').html('&nbsp;'+data.slice(8)+'&nbsp;');
+                }else if(data == 'room-full'){
+                    alert('没有空余房间！');
+                }else{
+                    alert('操作失败！');
+                }
+            }
+        })
+    })
+    
+    $('#agree-sure').click(function(){   
+        alert('操作成功');
+        window.location.href='/reserve';       
+    })
+
+    //拒绝预订
+    var refuse = "";
+    $(".refuse").click(function(){
+        refuse = $(this).attr("id");
+        console.log(refuse);
+    })
+
+    $('#refuse-sure').click(function(){
+        $.ajax({
+            url: '/refuseReserve',
+            method: 'POST',
+            data:{
+                refuse: refuse,
+                reason: $('#reason').val()
+            },
+            success: function(data){
+                if(data == "success"){
+                    alert('操作成功');
+                }else{
+                    alert('操作失败');
+                } 
+                window.location.href='/reserve';
+            }
+        })
+    })
   </script>
 </html>

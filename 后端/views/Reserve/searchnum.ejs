@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>酒店管理系统</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href='/stylesheets/reserve.css' />
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1506624_jkvot6m5nu8.css">
+</head>
+  <body>
+    <div class="all">
+        <div class="header">
+            <h1>酒店管理系统</h1>
+            <img class="manager" src=<%= manager %> />
+            <a href="/">退出登录</a>
+        </div>
+        <div class="slide">
+            <a href="/user">
+                <div class="nav" style="margin-top: 7%;">用户管理</div>
+            </a>
+            <a href="/room">
+                <div class="nav">客房管理</div>
+            </a>
+            <a href="/reserve">
+                <div class="nav" style="background: gray;">预订管理</div>
+            </a>
+            <a href="/order">
+                <div class="nav">订单管理</div>
+            </a>
+            <a href="/service">
+                <div class="nav">服务管理</div>
+            </a>
+            <a href="/comment">
+                <div class="nav">评论管理</div>
+            </a>
+        </div>
+        <div class="content">
+            <p class="numHead">查询房间余量</p>
+            <div class="numBox">
+                <div class="numBody" style="margin-top:6%;">
+                    <p>房间类型</p>
+                    <select class="search-type" id='type'>
+                        <% for(var i = 0 ; i < type.length; i++) {%>
+                            <option value=<%= type[i].roomType %>>
+                                <%= type[i].roomType%>
+                            </option>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="numBody">
+                    <p>入住时间</p>
+                    <input class="search-date" type="date" placeholder="请输入" id='inTime'/>
+                </div>
+                <div class="numBody">
+                    <p>离店时间</p>
+                    <input class="search-date" type="date" placeholder="请输入" id='outTime'/>
+                </div>
+                <p class="remain-num">房间余量 :
+                    <span id="remain-num" style="text-decoration: underline;color: #e53834;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                </p>
+                <input class="searchnum-button" type="button" value="点击查询"/>
+                <a href="/reserve"><button class="back-reserve">返回</button></a>
+            </div>
+        </div>
+    </div>
+  </body>
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript"></script>
+  <script>
+    var height = window.innerHeight;
+    console.log(height-70); 
+    $('.all').css('height',height);
+    $('.slide').css('height',height-70);
+    $('.content').css('height',height-70);
+    
+    //查询房间余量
+    var type = $('#type').val();
+    $('#type').blur(function(){
+        type = $(this).val();
+    });
+    $('.searchnum-button').click(function(){
+        if($('#inTime').val() == '' || $('#outTime').val() == '' ){
+            alert('请选择时间！');
+        }else{
+            $.ajax({
+            url: '/searchNum',
+            method: 'POST',
+            data:{
+                type: type,
+                inTime: $('#inTime').val(),
+                outTime: $('#outTime').val()
+            },
+            success: function(data){
+                if(data == 'error'){
+                    alert('查询失败！');
+                }else{
+                    $('#remain-num').html('&nbsp;'+data+'&nbsp;');
+                }
+            }
+        })
+        }
+    })
+  </script>
+</html>
